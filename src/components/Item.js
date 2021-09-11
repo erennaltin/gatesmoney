@@ -20,8 +20,8 @@ export default function Item({ item }) {
   };
 
   return (
-    <div className="w-1/4 p-4 m-2 min-w-min flex flex-col items-center ring-4 ring-green-400 rounded-lg overflow-hidden ">
-      <img src={item.image} alt="thing" className="rounded-lg h-2/3" />
+    <div className="w-1/4 p-4 m-2 mb-12 min-w-min flex flex-col items-center ring-4 ring-green-400 rounded-lg overflow-hidden">
+      <img src={item.image} alt="thing" className="rounded-lg h-2/3 w-full" />
       <h3 className="text-xl font-bold mt-4"> {item.title} </h3>
       <p className="text-lg mt-2"> {formatter.format(item.price)} </p>
       <div className="flex justify-evenly items-center w-full mt-2">

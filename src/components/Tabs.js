@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { Tab } from "@headlessui/react";
 import Item from "./Item";
 import { useSelector } from "react-redux";
+import MoneyBar from "./MoneyBar";
+import Receipt from "./Receipt";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Example() {
+export default function Tabs() {
   const cart = useSelector((store) => store.cart.items);
   const cartList = Object.values(cart);
 
@@ -21,15 +23,16 @@ export default function Example() {
       Store: cartList,
       Cart: cartList.filter((element) => (element.sold > 0 ? true : false)),
     });
-    
+
     // to differ cartList easily, I used this way
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart]);
 
   return (
-    <div className="w-full px-2 py-16">
+    <div className="w-full px-2 pb-16">
+      <MoneyBar className="mb-4" />
       <Tab.Group>
-        <Tab.List className="flex p-1 px-2  space-x-1 w-full bg-green-200 rounded-xl">
+        <Tab.List className="flex p-1 px-2 w-full bg-green-200 rounded-xl">
           {Object.keys(categories).map((category) => (
             <Tab
               key={category}
@@ -48,21 +51,24 @@ export default function Example() {
           ))}
         </Tab.List>
         <Tab.Panels className="mt-2">
-          {Object.values(categories).map((items, idx) => (
-            <Tab.Panel
-              key={idx}
-              className={classNames(
-                "bg-white rounded-xl p-3",
-                "focus:outline-none  ring-offset-2 ring-offset-green-400 ring-white ring-opacity-60"
-              )}
-            >
-              <div className="flex">
-                {items.map((item) => (
-                  <Item key={item.id} item={item} />
-                ))}
-              </div>
-            </Tab.Panel>
-          ))}
+          {({ selectedIndex }) => {
+            return Object.values(categories).map((items, idx) => (
+              <Tab.Panel
+                key={idx}
+                className={classNames(
+                  "bg-white rounded-xl p-3",
+                  "focus:outline-none  ring-offset-2 ring-offset-green-400 ring-white ring-opacity-60"
+                )}
+              >
+                <div className="flex flex-wrap justify-evenly">
+                  {items.map((item) => (
+                    <Item key={item.id} item={item} />
+                  ))}
+                  {selectedIndex === 1 && <Receipt />}
+                </div>
+              </Tab.Panel>
+            ));
+          }}
         </Tab.Panels>
       </Tab.Group>
     </div>

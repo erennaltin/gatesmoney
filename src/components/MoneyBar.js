@@ -2,12 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import CountUp from "react-countup";
 
-var formatter = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-});
 
-export default function MoneyBar() {
+export default function MoneyBar({...props}) {
   const cart = useSelector((state) => state.cart.items);
   const cartList = Object.values(cart);
   const [money, setMoney] = useState(100_000_000_000);
@@ -27,7 +23,7 @@ export default function MoneyBar() {
   }, [cart]);
 
   return (
-    <div className="flex items-center justify-center bg-gradient-to-b from-green-400 to-green-600 py-4 mx-4 rounded-xl text-white font-bold text-3xl">
+    <div className={`flex items-center sticky top-0 justify-center bg-gradient-to-b from-green-400 to-green-600 py-4  rounded-xl text-white font-bold text-3xl ${props.className}`}>
       <CountUp
         start={oldMoney}
         end={money}
