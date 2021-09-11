@@ -1,8 +1,9 @@
 import MoneyBar from "./components/MoneyBar";
+import Tabs from "./components/Tabs";
 
 function App() {
   return (
-    <div className="">
+    <div className="overflow-hidden">
       <div className="flex flex-col justify-center items-center h-64">
         <img
           className="rounded-full h-32 w-32"
@@ -15,6 +16,7 @@ function App() {
         </h1>
       </div>
       <MoneyBar />
+      <Tabs />
     </div>
   );
 }
